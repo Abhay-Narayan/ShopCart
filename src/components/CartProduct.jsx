@@ -1,9 +1,11 @@
 import { ShopContext } from "../context/ShopContext"
 import { useContext } from "react"
+import { CiTrash } from "react-icons/ci";
+
 import PropTypes from "prop-types";
 
 const CartProduct = ({product}) => {
-  const {addToCart, removeFromCart }= useContext(ShopContext);
+  const {addToCart, removeFromCart, removeSingle }= useContext(ShopContext);
   const handleAdd=()=>{
     addToCart(product.id);
   }
@@ -11,6 +13,9 @@ const CartProduct = ({product}) => {
     removeFromCart(product.id)
   }
   // const amount=cartItems.find((item)=>item.id===product.id);
+  const handleremove=()=>{
+    removeSingle(product.id);
+  }
   const amount= product.quantity
   return (
     <div className='flex items-center p-2 gap-4 w-full h-[170px] justify-between border-t mt-3'>
@@ -20,7 +25,7 @@ const CartProduct = ({product}) => {
                 <h1 className='font-medium'>{product.name}</h1>
                 <h2 className='font-medium'>₹{product.price}</h2>
             </div>
-            <div className='flex items-center gap-3'>
+            <div className='flex items-center gap-3 relative h-[150px]'>
                 <button onClick={handleminus} className='p-1 bg-gray-300 hover:bg-gray-400 font-semibold text-lg rounded-md w-[40px]'>
                   -
                 </button>
@@ -28,7 +33,7 @@ const CartProduct = ({product}) => {
                 <button onClick={handleAdd} className='p-1 bg-gray-300 hover:bg-gray-400 font-semibold text-lg rounded-md w-[40px]'>
                     +
                 </button>
-                
+                <button onClick={handleremove} className="p-2 rounded-md absolute top-0 right-0 bg-gray-300 hover:bg-gray-400  "><CiTrash/></button>
             </div>
         </div>
     </div>
